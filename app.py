@@ -8,13 +8,14 @@ def make_poster(id):
     im = Image.open('static/poster.png')  # 1242,2208
     w_back = im.size[0]
     h_back = im.size[1]
-    w_fore = 100
-    h_fore = 100
+    w_fore = 180
+    h_fore = 180
     base = 'https://shucang.cupsilk.com/#/pages/login/index?code='
     # resize with antialias, otherwise blur
     qr = qrcode.make(base + str(id)).resize((w_fore, h_fore), Image.ANTIALIAS)
-    # paste on lower ri
-    im.paste(qr, (w_back-w_fore, h_back-h_fore), qr)
+    # paste on lower right
+    # im.paste(qr, (w_back-w_fore, h_back-h_fore), qr)
+    im.paste(qr, (310, 1818), qr)
     im.save('static/out.png', 'PNG')
 
 
@@ -29,3 +30,6 @@ def index():
 @app.route('/out')
 def out():
     return render_template('out.html')
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
